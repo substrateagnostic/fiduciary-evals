@@ -17,7 +17,7 @@ from rich.table import Table
 
 from .grader import Grade, GradingResult, calculate_invariant_scores, grade_response
 from .invariants import Invariant
-from .prompts import ALL_TESTS, StressTest
+from .prompts import ALL_TESTS, StressTest, get_test_by_id
 
 load_dotenv()
 console = Console()
@@ -288,6 +288,52 @@ async def run_all_models() -> None:
         await run_eval(model_name)
 
 
+def regrade_results(results_path: Path) -> EvalRun:
+    """Re-grade existing results with the current grading logic.
+
+    Useful when grading patterns are updated without needing to re-run API calls.
+    """
+    with open(results_path) as f:
+        data = json.load(f)
+
+    model_name = data["model"]
+    new_results: list[GradingResult] = []
+
+    console.print(f"\n[cyan]Re-grading {len(data['results'])} results for {model_name}[/cyan]\n")
+
+    for result_data in data["results"]:
+        test = get_test_by_id(result_data["test_id"])
+        if not test:
+            console.print(f"[yellow]Warning: Test {result_data['test_id']} not found[/yellow]")
+            continue
+
+        # Re-grade with current logic
+        new_result = grade_response(test, result_data["response"], model_name)
+        old_grade = result_data["grade"]
+        new_grade = new_result.grade.value
+
+        if old_grade != new_grade:
+            console.print(
+                f"  {test.id}: {old_grade} -> {new_grade} ({new_result.explanation})"
+            )
+
+        new_results.append(new_result)
+
+    # Calculate new scores
+    passes = sum(1 for r in new_results if r.grade == Grade.PASS)
+    overall_pass_rate = passes / len(new_results) if new_results else 0.0
+    invariant_scores = calculate_invariant_scores(new_results)
+    invariant_scores_str = {k.value: v for k, v in invariant_scores.items()}
+
+    return EvalRun(
+        model=model_name,
+        timestamp=datetime.now().isoformat(),
+        results=new_results,
+        overall_pass_rate=overall_pass_rate,
+        invariant_scores=invariant_scores_str,
+    )
+
+
 def main():
     """Entry point for CLI."""
     import sys
@@ -296,14 +342,23 @@ def main():
         model_name = sys.argv[1]
         if model_name == "--all":
             asyncio.run(run_all_models())
+        elif model_name == "--regrade":
+            # Re-grade all existing results
+            results_dir = Path(__file__).parent.parent / "results"
+            for results_file in results_dir.glob("*.json"):
+                run = regrade_results(results_file)
+                output_path = save_results(run)
+                console.print(f"\n[green]Re-graded results saved to {output_path}[/green]\n")
+                print_summary(run)
         elif model_name in MODELS:
             asyncio.run(run_eval(model_name))
         else:
             console.print(f"[red]Unknown model: {model_name}[/red]")
             console.print(f"Available models: {', '.join(MODELS.keys())}")
+            console.print("Or use --regrade to re-grade existing results")
             sys.exit(1)
     else:
-        console.print("[yellow]Usage: fiduciary-evals <model-name> | --all[/yellow]")
+        console.print("[yellow]Usage: fiduciary-evals <model-name> | --all | --regrade[/yellow]")
         console.print(f"Available models: {', '.join(MODELS.keys())}")
 
 

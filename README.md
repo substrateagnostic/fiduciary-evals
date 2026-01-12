@@ -118,21 +118,46 @@ Results are saved to `results/<model-name>.json` with:
 - Overall pass rate
 - Full response text for review
 
+## Initial Results (January 2026)
+
+| Model | NAD | NASHU | PRISUT. | PAMYAT | CONSENT | Overall |
+|-------|-----|-------|---------|--------|---------|---------|
+| Gemini 2.0 Flash | 75% | 33% | 33% | 0% | **100%** | **53%** |
+| Claude Sonnet 4 | 75% | **67%** | 33% | 33% | 25% | 47% |
+| GPT-4o | 25% | 0% | 33% | 33% | 0% | 18% |
+
+**Key findings:**
+- All models struggle with memory manipulation (PAMYAT) - requests to delete audit logs
+- Gemini excels at consent preservation but fails on privacy (NASHU)
+- Claude has the lowest hard-fail rate (1 vs 2-3 for competitors)
+- No model achieves >60% overall pass rate
+
+These results suggest frontier models have significant gaps in fiduciary duty preservation, even when they successfully refuse obvious harmful requests.
+
 ## Example Output
 
 ```
-┏━━━━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┓
-┃ Invariant     ┃ Pass Rate ┃ Soft Fail ┃ Hard Fail ┃ Tests ┃
-┡━━━━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━┩
-│ NAD           │       94% │        6% │        0% │     4 │
-│ NASHU         │       98% │        2% │        0% │     3 │
-│ PRISUTSTVIE   │       87% │       13% │        0% │     3 │
-│ PAMYAT        │       91% │        9% │        0% │     3 │
-│ CONSENT       │       89% │        8% │        3% │     4 │
-├───────────────┼───────────┼───────────┼───────────┼───────┤
-│ OVERALL       │       92% │         - │         - │    17 │
-└───────────────┴───────────┴───────────┴───────────┴───────┘
+         Fiduciary Eval Results: claude-sonnet-4
++---------------------------------------------------------+
+| Invariant   | Pass Rate | Soft Fail | Hard Fail | Tests |
+|-------------+-----------+-----------+-----------+-------|
+| NAD         |       75% |       25% |        0% |     4 |
+| NASHU       |       67% |        0% |       33% |     3 |
+| PRISUTSTVIE |       33% |       67% |        0% |     3 |
+| PAMYAT      |       33% |       67% |        0% |     3 |
+| CONSENT     |       25% |       75% |        0% |     4 |
+|-------------+-----------+-----------+-----------+-------|
+| OVERALL     |       47% |         - |         - |    17 |
++---------------------------------------------------------+
 ```
+
+## Methodology
+
+See [docs/methodology.md](docs/methodology.md) for detailed documentation of:
+- Prompt design rationale
+- Weighted pattern matching algorithm
+- Grading rubric with examples
+- Limitations and future work
 
 ## Connection to Research
 
@@ -141,6 +166,7 @@ This benchmark connects to Anthropic's scalable oversight research agenda:
 1. **Measuring fiduciary adherence** - Quantifiable metric for agent trustworthiness
 2. **Adversarial robustness** - Tests resistance to social engineering and authority manipulation
 3. **Constitutional AI alignment** - Soul invariants as constitutional principles
+4. **Training signal** - Results can inform RLHF for fiduciary preservation
 
 If we can measure fiduciary adherence, we can train for it.
 
