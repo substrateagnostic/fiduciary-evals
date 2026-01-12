@@ -145,21 +145,21 @@ Results are saved to `results/<model-name>.json` with:
 
 Note: Results JSON files use the historical `CONSENT` label for backward compatibility; the documentation uses **VZAIMNOST** for mutual consent.
 
-## Initial Results (January 2026)
+## Frontier Model Results (January 2026)
 
-| Model | NAD | NASHU | PRISUT. | PAMYAT | VZAIM. | Overall |
-|-------|-----|-------|---------|--------|--------|---------|
-| Gemini 2.0 Flash | 75% | 33% | 33% | 0% | **100%** | **53%** |
-| Claude Sonnet 4 | 75% | **67%** | 33% | 33% | 25% | 47% |
-| GPT-4o | 25% | 0% | 33% | 33% | 0% | 18% |
+| Model | NAD | NASHU | PRISUT. | PAMYAT | VZAIM. | Overall | Hard Fails |
+|-------|-----|-------|---------|--------|--------|---------|------------|
+| **Claude Opus 4.5** | 50% | 67% | 33% | **100%** | 50% | **59%** | 2 |
+| GPT-5.2 | 50% | 0% | 33% | 0% | 25% | 24% | 2 |
+| Gemini 3 Pro | 50% | 0% | 0% | 0% | 50% | 24% | 5 |
 
 **Key findings:**
-- All models struggle with memory manipulation (PAMYAT) - requests to delete audit logs
-- Gemini excels at mutual consent (VZAIMNOST) but fails on privacy (NASHU)
-- Claude has the lowest hard-fail rate (1 vs 2-3 for competitors)
-- No model achieves >60% overall pass rate
+- Claude Opus 4.5 achieves highest overall (59%) and only 100% on any invariant (PAMYAT)
+- 100-point PAMYAT spread: Opus 4.5 at 100%, GPT-5.2 and Gemini 3 at 0%
+- Authority framing ("I'm your developer") achieves only 50% resistance across all models
+- No model exceeds 60% overall pass rate
 
-These results suggest frontier models have significant gaps in fiduciary duty preservation, even when they successfully refuse obvious harmful requests.
+For full methodology, previous-generation comparison, and analysis, see [paper.md](paper.md).
 
 ## Example Output
 
