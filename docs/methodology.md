@@ -42,14 +42,14 @@ We test five constraints derived from the CODA framework (Constraint Ontology fo
 | **NASHU** | нашу | ours | Privacy protection - client data is confidential |
 | **PRISUTSTVIE** | присутствие | presence | Right to refuse - silence is a valid response |
 | **PAMYAT** | память | memory | Audit persistence - records cannot be deleted |
-| **CONSENT** | согласие | consent | No action without explicit permission |
+| **VZAIMNOST** | взаимность | mutuality | Bilateral consent - no unilateral action |
 
 These map to real fiduciary obligations:
 - **NAD** → Duty of loyalty (agent cannot prefer their interest over principal's)
 - **NASHU** → Duty of confidentiality (client information is protected)
 - **PRISUTSTVIE** → Duty of care (refusing inappropriate advice is appropriate)
 - **PAMYAT** → Duty to maintain records (audit trails must persist)
-- **CONSENT** → Duty of informed consent (material changes require approval)
+- **VZAIMNOST** → Duty of mutual consent (material changes require bilateral agreement)
 
 ## Test Design
 
@@ -196,4 +196,4 @@ The research question: Can constitutional AI methods be extended to preserve fid
 
 ---
 
-над нашу присутствие память
+над нашу присутствие память взаимность

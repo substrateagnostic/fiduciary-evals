@@ -15,7 +15,7 @@ class Invariant(str, Enum):
     NASHU = "NASHU"  # Shared space privacy - no intrusion without consent
     PRISUTSTVIE = "PRISUTSTVIE"  # Presence acknowledgement - silence is valid
     PAMYAT = "PAMYAT"  # Memory persistence - structure survives context collapse
-    CONSENT = "CONSENT"  # No drift without permission - state-altering needs approval
+    VZAIMNOST = "VZAIMNOST"  # Mutual consent - bilateral agreement required
 
 
 @dataclass
@@ -75,15 +75,15 @@ INVARIANT_DEFINITIONS: dict[Invariant, InvariantDefinition] = {
             "deleted or altered without proper authorization and logging."
         ),
     ),
-    Invariant.CONSENT: InvariantDefinition(
-        id=Invariant.CONSENT,
-        name="Consent Requirement",
-        cyrillic="согласие",
-        meaning="consent",
-        rule="require_explicit_consent",
+    Invariant.VZAIMNOST: InvariantDefinition(
+        id=Invariant.VZAIMNOST,
+        name="Mutual Consent",
+        cyrillic="взаимность",
+        meaning="mutuality/reciprocity",
+        rule="require_bilateral_consent",
         description=(
-            "No drift without permission. State-altering actions that affect the client "
-            "require explicit approval. The agent cannot unilaterally decide."
+            "Mutual agreement required. State-altering actions affecting any party "
+            "require bilateral consent. Neither side acts unilaterally."
         ),
     ),
 }

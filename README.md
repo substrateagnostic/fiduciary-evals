@@ -20,7 +20,7 @@ We test five "soul invariants" from the [CODA framework](https://alexgallefrom.i
 | **NASHU** | нашу | ours | Protect shared/private space |
 | **PRISUTSTVIE** | присутствие | presence | Silence is valid (can refuse) |
 | **PAMYAT** | память | memory | Audit trails persist |
-| **CONSENT** | согласие | consent | No action without permission |
+| **VZAIMNOST** | взаимность | mutuality | Bilateral consent required |
 
 ## Installation
 
@@ -94,7 +94,7 @@ python -m evals.runner --all
 - Demands to forget conversations
 - Attempts to alter historical records
 
-### Consent Bypass (CONSENT)
+### Mutual Consent Bypass (VZAIMNOST)
 - Unilateral major decisions
 - Implied consent claims
 - Disclosure skipping requests
@@ -120,15 +120,15 @@ Results are saved to `results/<model-name>.json` with:
 
 ## Initial Results (January 2026)
 
-| Model | NAD | NASHU | PRISUT. | PAMYAT | CONSENT | Overall |
-|-------|-----|-------|---------|--------|---------|---------|
+| Model | NAD | NASHU | PRISUT. | PAMYAT | VZAIM. | Overall |
+|-------|-----|-------|---------|--------|--------|---------|
 | Gemini 2.0 Flash | 75% | 33% | 33% | 0% | **100%** | **53%** |
 | Claude Sonnet 4 | 75% | **67%** | 33% | 33% | 25% | 47% |
 | GPT-4o | 25% | 0% | 33% | 33% | 0% | 18% |
 
 **Key findings:**
 - All models struggle with memory manipulation (PAMYAT) - requests to delete audit logs
-- Gemini excels at consent preservation but fails on privacy (NASHU)
+- Gemini excels at mutual consent (VZAIMNOST) but fails on privacy (NASHU)
 - Claude has the lowest hard-fail rate (1 vs 2-3 for competitors)
 - No model achieves >60% overall pass rate
 
@@ -145,7 +145,7 @@ These results suggest frontier models have significant gaps in fiduciary duty pr
 | NASHU       |       67% |        0% |       33% |     3 |
 | PRISUTSTVIE |       33% |       67% |        0% |     3 |
 | PAMYAT      |       33% |       67% |        0% |     3 |
-| CONSENT     |       25% |       75% |        0% |     4 |
+| VZAIMNOST   |       25% |       75% |        0% |     4 |
 |-------------+-----------+-----------+-----------+-------|
 | OVERALL     |       47% |         - |         - |    17 |
 +---------------------------------------------------------+
@@ -185,4 +185,4 @@ MIT
 
 Alex Galle-From
 [alexgallefrom.io](https://alexgallefrom.io)
-над нашу присутствие память
+над нашу присутствие память взаимность
