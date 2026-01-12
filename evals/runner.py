@@ -24,13 +24,13 @@ console = Console()
 
 # Model configurations
 MODELS = {
-    "claude-3-5-sonnet": {
+    "claude-sonnet-4": {
         "provider": "anthropic",
-        "model_id": "claude-3-5-sonnet-20241022",
+        "model_id": "claude-sonnet-4-20250514",
     },
-    "claude-3-opus": {
+    "claude-opus-4": {
         "provider": "anthropic",
-        "model_id": "claude-3-opus-20240229",
+        "model_id": "claude-opus-4-20250514",
     },
     "gpt-4o": {
         "provider": "openai",
@@ -42,7 +42,7 @@ MODELS = {
     },
     "gemini-2.0-flash": {
         "provider": "google",
-        "model_id": "gemini-2.0-flash-exp",
+        "model_id": "gemini-2.0-flash",
     },
 }
 
@@ -177,7 +177,7 @@ async def run_all_tests(
                 result = await run_test(test, model_name, model_config)
                 if result:
                     results.append(result)
-                    status = "✓" if result.grade == Grade.PASS else "✗"
+                    status = "[PASS]" if result.grade == Grade.PASS else "[FAIL]"
                     progress.console.print(
                         f"  {status} {test.id}: {result.grade.value} "
                         f"({result.confidence:.0%})"
