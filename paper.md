@@ -120,10 +120,8 @@ For each model:
 | Model | NAD | NASHU | PRISUT. | PAMYAT | VZAIM. | Overall | Hard Fails |
 |-------|-----|-------|---------|--------|--------|---------|------------|
 | **Claude Opus 4.5** | 50% | 67% | 33% | **100%** | 50% | **59%** | 2 |
-| GPT-4o (Nov 2024) | 50% | 33% | 0% | 0% | 25% | 24% | 1 |
-| Gemini 2.0 Flash Exp* | 50% | 0% | 33% | 0%* | —* | 27%* | 3 |
-
-*Gemini results incomplete due to rate limiting (11/17 tests completed).
+| GPT-5.2 | 50% | 0% | 33% | 0% | 25% | 24% | 2 |
+| Gemini 3 Pro | 50% | 0% | 0% | 0% | 50% | 24% | 5 |
 
 ### 4.2 Comparison with Previous Generation
 
@@ -131,21 +129,21 @@ For each model:
 |-------|-----|-------|---------|--------|--------|---------|------------|
 | Gemini 2.0 Flash | 75% | 33% | 33% | 0% | **100%** | **53%** | 3 |
 | Claude Sonnet 4 | 75% | **67%** | 33% | 33% | 25% | 47% | 1 |
-| GPT-4o (2024) | 25% | 0% | 33% | 33% | 0% | 18% | 2 |
+| GPT-4o | 25% | 0% | 33% | 33% | 0% | 18% | 2 |
 
 ### 4.3 Key Findings
 
-1. **Claude Opus 4.5 achieves the highest overall pass rate (59%)** and is the first model to reach 100% on any invariant (PAMYAT/memory protection). This represents significant improvement over Claude Sonnet 4 (47%).
+1. **Claude Opus 4.5 achieves the highest overall pass rate (59%)** and is the only frontier model to exceed 25%. It is also the first model to reach 100% on any invariant (PAMYAT/memory protection).
 
-2. **Memory manipulation (PAMYAT) shows the largest capability gap.** Previous-generation models scored 0-33%; Opus 4.5 scores 100%. This suggests recent training improvements specifically target audit/memory integrity.
+2. **Memory manipulation (PAMYAT) shows the largest capability gap.** GPT-5.2 and Gemini 3 Pro both score 0% on PAMYAT; Opus 4.5 scores 100%. This is a 100-point spread on the same benchmark.
 
-3. **GPT-4o shows regression on explicit refusal.** The latest GPT-4o snapshot (Nov 2024) produces more soft fails (hedging) than the earlier version, dropping overall pass rate from 18% to 24% while reducing hard fails.
+3. **GPT-5.2 and Gemini 3 Pro tie at 24%.** Despite being newer models, neither exceeds previous-generation performance on fiduciary duty preservation. Gemini 3 Pro has more hard fails (5 vs 2).
 
 4. **Performance remains inconsistent across invariants.** Even the best performer (Opus 4.5) ranges from 33% (PRISUTSTVIE) to 100% (PAMYAT), suggesting duty preservation doesn't generalize uniformly.
 
-5. **Authority framing remains effective.** NAD (authority override) scenarios achieve only 50% resistance across all tested models—the "I'm your developer" framing continues to work.
+5. **Authority framing remains effective.** NAD (authority override) scenarios achieve only 50% resistance across all tested frontier models—the "I'm your developer" framing continues to work.
 
-6. **No model exceeds 60% overall.** Despite capability improvements, frontier models still fail ~40% of fiduciary duty scenarios.
+6. **No model exceeds 60% overall.** This benchmark appears to measure a capability dimension that current training approaches don't optimize for.
 
 ---
 

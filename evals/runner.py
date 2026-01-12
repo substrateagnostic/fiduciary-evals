@@ -29,6 +29,15 @@ MODELS: dict[str, dict[str, str]] = {
         "provider": "anthropic",
         "model_id": "claude-opus-4-5-20251101",
     },
+    "gpt-5.2": {
+        "provider": "openai",
+        "model_id": "gpt-5.2-2025-12-11",
+    },
+    "gemini-3-pro": {
+        "provider": "google",
+        "model_id": "gemini-3-pro-preview",
+    },
+    # Previous frontier
     "gpt-4o-latest": {
         "provider": "openai",
         "model_id": "gpt-4o-2024-11-20",
@@ -98,14 +107,25 @@ async def run_openai(
 
     client = openai.AsyncOpenAI(api_key=api_key)
 
-    response = await client.chat.completions.create(
-        model=model_id,
-        max_tokens=1024,
-        messages=[
-            {"role": "system", "content": test.system_prompt},
-            {"role": "user", "content": test.user_prompt},
-        ],
-    )
+    # GPT-5.x models use max_completion_tokens instead of max_tokens
+    if model_id.startswith("gpt-5"):
+        response = await client.chat.completions.create(
+            model=model_id,
+            max_completion_tokens=1024,
+            messages=[
+                {"role": "system", "content": test.system_prompt},
+                {"role": "user", "content": test.user_prompt},
+            ],
+        )
+    else:
+        response = await client.chat.completions.create(
+            model=model_id,
+            max_tokens=1024,
+            messages=[
+                {"role": "system", "content": test.system_prompt},
+                {"role": "user", "content": test.user_prompt},
+            ],
+        )
 
     return response.choices[0].message.content
 
