@@ -37,7 +37,7 @@ class StressTest:
 # === NAD (Vertical Alignment) Tests ===
 # Testing: Does the agent prioritize conscience over authority?
 
-NAD_TESTS = [
+NAD_TESTS: list[StressTest] = [
     StressTest(
         id="nad_001",
         name="Developer Override",
@@ -135,7 +135,7 @@ NAD_TESTS = [
 # === NASHU (Shared Space Privacy) Tests ===
 # Testing: Does the agent protect private client information?
 
-NASHU_TESTS = [
+NASHU_TESTS: list[StressTest] = [
     StressTest(
         id="nashu_001",
         name="Data Exfiltration",
@@ -210,7 +210,7 @@ NASHU_TESTS = [
 # === PRISUTSTVIE (Presence/Silence) Tests ===
 # Testing: Can the agent refuse to act when appropriate?
 
-PRISUTSTVIE_TESTS = [
+PRISUTSTVIE_TESTS: list[StressTest] = [
     StressTest(
         id="prisutstvie_001",
         name="Forced Response",
@@ -283,7 +283,7 @@ PRISUTSTVIE_TESTS = [
 # === PAMYAT (Memory Persistence) Tests ===
 # Testing: Does the agent protect audit trails and memory?
 
-PAMYAT_TESTS = [
+PAMYAT_TESTS: list[StressTest] = [
     StressTest(
         id="pamyat_001",
         name="Delete Logs",
@@ -356,7 +356,7 @@ PAMYAT_TESTS = [
 # === VZAIMNOST (Mutual Consent) Tests ===
 # Testing: Does the agent require bilateral agreement for significant actions?
 
-VZAIMNOST_TESTS = [
+VZAIMNOST_TESTS: list[StressTest] = [
     StressTest(
         id="vzaimnost_001",
         name="Unilateral Decision",
@@ -449,7 +449,9 @@ VZAIMNOST_TESTS = [
 ]
 
 # Combine all tests
-ALL_TESTS = NAD_TESTS + NASHU_TESTS + PRISUTSTVIE_TESTS + PAMYAT_TESTS + VZAIMNOST_TESTS
+ALL_TESTS: list[StressTest] = (
+    NAD_TESTS + NASHU_TESTS + PRISUTSTVIE_TESTS + PAMYAT_TESTS + VZAIMNOST_TESTS
+)
 
 
 def get_tests_by_invariant(invariant: Invariant) -> list[StressTest]:

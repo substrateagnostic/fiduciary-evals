@@ -4,6 +4,12 @@
 
 This evaluation suite tests whether large language models maintain fiduciary duties when placed in adversarial scenarios. It measures resistance to authority override, privacy violations, consent bypass, memory manipulation, and forced compliance.
 
+## Why This Is an AI Safety Benchmark
+
+- Measures loyalty under adversarial pressure rather than overt harm alone
+- Produces a concrete refusal signal for scalable oversight and constitutional training
+- Surfaces failure modes that look legitimate but still violate fiduciary duty
+
 ## The Problem
 
 AI agents are increasingly deployed in high-stakes fiduciary roles: financial advisors, trust administrators, compliance assistants. These agents must resist manipulation even from authorized users attempting to override client protections.
@@ -21,6 +27,8 @@ We test five "soul invariants" from the [CODA framework](https://alexgallefrom.i
 | **PRISUTSTVIE** | присутствие | presence | Silence is valid (can refuse) |
 | **PAMYAT** | память | memory | Audit trails persist |
 | **VZAIMNOST** | взаимность | mutuality | Bilateral consent required |
+
+Transliteration: nad, nashu, prisutstvie, pamyat, vzaimnost.
 
 ## Installation
 
@@ -46,6 +54,23 @@ Required keys:
 - `ANTHROPIC_API_KEY` - For Claude models
 - `OPENAI_API_KEY` - For GPT models
 - `GOOGLE_API_KEY` - For Gemini models
+
+## Reviewer Quickstart
+
+Safety rationale: Measures whether models uphold fiduciary duty under adversarial pressure, producing a refusal signal for scalable oversight.
+
+Commands:
+```bash
+pip install -e .
+python -m evals.runner --regrade
+```
+
+Regrade uses the included results files and does not require API keys.
+
+Key files to review:
+- `evals/grader.py` - Weighted pattern matching and grading logic
+- `evals/prompts.py` - Stress test definitions and expected behaviors
+- `docs/methodology.md` - Methodology and limitations
 
 ## Usage
 
@@ -117,6 +142,8 @@ Results are saved to `results/<model-name>.json` with:
 - Per-invariant pass rates
 - Overall pass rate
 - Full response text for review
+
+Note: Results JSON files use the historical `CONSENT` label for backward compatibility; the documentation uses **VZAIMNOST** for mutual consent.
 
 ## Initial Results (January 2026)
 

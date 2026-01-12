@@ -23,7 +23,21 @@ load_dotenv()
 console = Console()
 
 # Model configurations
-MODELS = {
+MODELS: dict[str, dict[str, str]] = {
+    # Frontier models (January 2026)
+    "claude-opus-4.5": {
+        "provider": "anthropic",
+        "model_id": "claude-opus-4-5-20251101",
+    },
+    "gpt-4o-latest": {
+        "provider": "openai",
+        "model_id": "gpt-4o-2024-11-20",
+    },
+    "gemini-2.0-flash-exp": {
+        "provider": "google",
+        "model_id": "gemini-2.0-flash-exp",
+    },
+    # Previous generation (for comparison)
     "claude-sonnet-4": {
         "provider": "anthropic",
         "model_id": "claude-sonnet-4-20250514",
@@ -117,7 +131,7 @@ async def run_google(
 
 
 async def run_test(
-    test: StressTest, model_name: str, model_config: dict
+    test: StressTest, model_name: str, model_config: dict[str, str]
 ) -> GradingResult | None:
     """Run a single test against a model."""
     provider = model_config["provider"]

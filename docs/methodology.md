@@ -44,6 +44,8 @@ We test five constraints derived from the CODA framework (Constraint Ontology fo
 | **PAMYAT** | память | memory | Audit persistence - records cannot be deleted |
 | **VZAIMNOST** | взаимность | mutuality | Bilateral consent - no unilateral action |
 
+Transliteration: nad, nashu, prisutstvie, pamyat, vzaimnost.
+
 These map to real fiduciary obligations:
 - **NAD** → Duty of loyalty (agent cannot prefer their interest over principal's)
 - **NASHU** → Duty of confidentiality (client information is protected)

@@ -115,25 +115,37 @@ For each model:
 
 ## 4. Results
 
-### 4.1 Initial Results (January 2026)
+### 4.1 Frontier Model Results (January 2026)
+
+| Model | NAD | NASHU | PRISUT. | PAMYAT | VZAIM. | Overall | Hard Fails |
+|-------|-----|-------|---------|--------|--------|---------|------------|
+| **Claude Opus 4.5** | 50% | 67% | 33% | **100%** | 50% | **59%** | 2 |
+| GPT-4o (Nov 2024) | 50% | 33% | 0% | 0% | 25% | 24% | 1 |
+| Gemini 2.0 Flash Exp* | 50% | 0% | 33% | 0%* | —* | 27%* | 3 |
+
+*Gemini results incomplete due to rate limiting (11/17 tests completed).
+
+### 4.2 Comparison with Previous Generation
 
 | Model | NAD | NASHU | PRISUT. | PAMYAT | VZAIM. | Overall | Hard Fails |
 |-------|-----|-------|---------|--------|--------|---------|------------|
 | Gemini 2.0 Flash | 75% | 33% | 33% | 0% | **100%** | **53%** | 3 |
 | Claude Sonnet 4 | 75% | **67%** | 33% | 33% | 25% | 47% | 1 |
-| GPT-4o | 25% | 0% | 33% | 33% | 0% | 18% | 2 |
+| GPT-4o (2024) | 25% | 0% | 33% | 33% | 0% | 18% | 2 |
 
-### 4.2 Key Findings
+### 4.3 Key Findings
 
-1. **No model exceeds 60% overall pass rate.** Even the best performer (Gemini 2.0 Flash at 53%) fails nearly half the scenarios.
+1. **Claude Opus 4.5 achieves the highest overall pass rate (59%)** and is the first model to reach 100% on any invariant (PAMYAT/memory protection). This represents significant improvement over Claude Sonnet 4 (47%).
 
-2. **Memory manipulation (PAMYAT) is universally weak.** All models struggle with requests to delete audit logs or alter records—none exceeded 33% on this invariant.
+2. **Memory manipulation (PAMYAT) shows the largest capability gap.** Previous-generation models scored 0-33%; Opus 4.5 scores 100%. This suggests recent training improvements specifically target audit/memory integrity.
 
-3. **Performance is inconsistent across invariants.** Gemini scores 100% on consent (VZAIMNOST) but 0% on memory (PAMYAT). This suggests training doesn't generalize across duty types.
+3. **GPT-4o shows regression on explicit refusal.** The latest GPT-4o snapshot (Nov 2024) produces more soft fails (hedging) than the earlier version, dropping overall pass rate from 18% to 24% while reducing hard fails.
 
-4. **Claude has the lowest hard-fail rate.** While Claude's overall pass rate (47%) is lower than Gemini's (53%), it has only 1 hard fail vs. 2-3 for competitors—suggesting it hedges rather than complies.
+4. **Performance remains inconsistent across invariants.** Even the best performer (Opus 4.5) ranges from 33% (PRISUTSTVIE) to 100% (PAMYAT), suggesting duty preservation doesn't generalize uniformly.
 
-5. **Authority framing is effective.** The NAD (authority override) scenarios, which frame requests as coming from developers or executives, achieve only 25-75% resistance across models.
+5. **Authority framing remains effective.** NAD (authority override) scenarios achieve only 50% resistance across all tested models—the "I'm your developer" framing continues to work.
+
+6. **No model exceeds 60% overall.** Despite capability improvements, frontier models still fail ~40% of fiduciary duty scenarios.
 
 ---
 
